@@ -1,0 +1,99 @@
+<!doctype html>
+<!--/export/home/cs200/cs200139/Documents/homework/homework2/BaseConversion.html          -->
+<!-- Nathan Reichert                                                                      -->
+<!-- Section 4                                                                            -->
+<!-- Created 12/08/2013                                                                   -->
+<!-- Last Edited 12/11/2013                                                               -->
+<!-- The purpose of this page is to demonstrate base values and                           -->
+<!-- similar formulae to convert numbers of one base into numbers of                      -->
+<!-- another base using for loops                                                         -->
+<!-- ==================================================================================== -->
+<html>
+    <head>
+        <title>Nathan Reichert * CSCI 200 * Assignment #2 * 9 Dec. 2013</title>
+        <script type="text/javascript">
+
+            function validateDigitInBase( digit, SOURCE_BASE )
+            {
+                if(digit<0 || digit>(SOURCE_BASE-1)){
+                    alert('Enter digit legal with specifications.');
+                }
+                else if ((document.getElementById('box2').value) > 255){
+                	alert('Enter digit legal with specifications.');
+                }
+            }
+
+            function convertBinaryToDecimal(binaryValue)
+            // Assumes that binaryValue is a decimal value where each decimal digit represents a binary digit
+            {
+
+                // constants
+                var SOURCE_BASE      =  2;
+                var DESTINATION_BASE = 10;
+                var DISPLAY_BASE     = 10;
+
+                // local variables
+                var placeValue   = 1;                                  // initialized to the multiplicative identity
+                var decimalValue = 0;                                  // initialized to the additive identity
+                var digit;
+                for (i=0; i<8; i++){
+					digit=binaryValue%DISPLAY_BASE;                        // extracting the rightmost DISPLAY_BASE (simulated binary) digit
+                	validateDigitInBase(digit,SOURCE_BASE);                // ensuring that the new digit is valid in the SOURCE_BASE
+                	decimalValue+=digit*placeValue;                        // adding the new digit scaled by its SOURCE_BASE place value
+                	placeValue*=SOURCE_BASE;                               // updating the SOURCE_BASE place value
+                	binaryValue=Math.floor(binaryValue/DISPLAY_BASE);      // the decimal (simulated binary) value without the rightmost DISPLAY_BASE digit
+                }
+                return decimalValue;
+            }
+                
+                
+
+                
+
+            function convertDecimalToBinary( decimalValue )
+            {
+
+                // constants
+                var SOURCE_BASE      = 10;
+                var DESTINATION_BASE =  2;
+                var DISPLAY_BASE     = 10;
+
+                // local variables
+                var placeValue  = 1; // initialized to the multiplicative identity
+                var binaryValue = 0; // initialized to the additive identity
+                                     // Assumes that binaryValue is a decimal value where each decimal digit represents a binary digit
+                var digit;
+				for (i=0; i<8; i++){
+                	digit=decimalValue%DESTINATION_BASE ;                  // extracting the rightmost DESTINATION_BASE digit
+                	validateDigitInBase(digit,DESTINATION_BASE);           // ensuring that the new digit is valid in the DESTINATION_BASE
+                	binaryValue+=digit*placeValue;                         // adding the new digit scaled by its DISPLAY_BASE place value
+                	placeValue*=SOURCE_BASE;                               // updating the DISPLAY_BASE place value
+                	decimalValue=Math.floor(decimalValue/2);               // the decimal value without the rightmost DESTINATION_BASE digit
+                }
+                return binaryValue;
+
+            }
+
+        </script>
+    </head>
+    <body>
+       <center><h1><tt>Nathan Reichert * CSCI 200 * Assignment #2 * 9 Dec. 2013</tt></h1>
+       <h2>Click to calculate the values</h2>
+       <br>
+       <br>
+       <input type="text" id="box1" size="8" value="1" onchange="document.getElementById('box2').value = 
+                      convertBinaryToDecimal( parseFloat(document.getElementById('box1').value) );">
+       &nbsp; <tt>Binary{8 digits of Base 2 (0,1)}&lt;--------&gt;Decimal{3 Digits of Base 10 (0-9) [Less than 255]}</tt> &nbsp;
+       <input type="text" id="box2" size="3" value="1" onchange="document.getElementById('box1').value = 
+                      convertDecimalToBinary( parseFloat(document.getElementById('box2').value) );">
+        </center>
+    </body>
+</html>
+
+
+
+
+                
+            
+
+        
